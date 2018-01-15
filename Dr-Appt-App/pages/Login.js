@@ -3,14 +3,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button, FormInput, FormLabel, Header, Icon } from 'react-native-elements';
 import Logo from '../components/Logo.js'
 
+// Login View
 export default class Login extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <Header
-          leftComponent={{ icon: 'menu', color: '#fff' }}
+          //leftComponent={{ icon: 'menu', color: '#fff' }}
           centerComponent={{ text: 'Dr Appt App', style: { color: '#fff' } }}
-          rightComponent={{ icon: 'home', color: '#fff' }}
+          //rightComponent={{ icon: 'home', color: '#fff' }}
           outerContainerStyles={{ backgroundColor: 'gray', alignSelf: 'stretch', marginBottom: 100}}
         />
         <Icon

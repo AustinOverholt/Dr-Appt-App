@@ -6,6 +6,7 @@ import Login from '../pages/Login.js';
 import Doctor from '../pages/Doctor.js';
 import Patient from '../pages/Patient.js';
 
+// Routing tabs for application
 export const Tabs = TabNavigator({
     Login: {
         screen: Login,

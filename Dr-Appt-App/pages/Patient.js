@@ -1,62 +1,24 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Button, FormInput, FormLabel, Header, SearchBar } from 'react-native-elements';
+import { Button, FormInput, FormLabel, Header, SearchBar, Card } from 'react-native-elements';
 import Logo from '../components/Logo.js';
 import userapi from '../utilities/UserApi.js';
+import {users, appointments} from '../config/data.js';
+import DatePicker from 'react-native-datepicker';
 
+// Patient View
 export default class Login extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            users: [ 
-                    
-                        {
-                            "id": "1",
-                            "Name": "Bob Smith",
-                            "Age": "45",
-                            "Address": "123 Main St",
-                            "Role": "0",
-                            "created": "2018-01-13 16:40:33",
-                            "modified": null
-                        },
-                    
-                       {
-                            "id": "2",
-                            "Name": "John Doe",
-                            "Age": "29",
-                            "Address": "456 Park Ave",
-                            "Role": "1",
-                            "created": "2018-01-13 16:41:39",
-                            "modified": null
-                        },
-                    
-                        {
-                            "id": "3",
-                            "Name": "Jane Doe",
-                            "Age": "32",
-                            "Address": "789 Broadway",
-                            "Role": "1",
-                            "created": "2018-01-13 16:41:39",
-                            "modified": null
-                        },
-                
-                    
-                        {
-                            "id": "6",
-                            "Name": "John Smith",
-                            "Age": "50",
-                            "Address": "555 West St",
-                            "Role": "1",
-                            "created": "2018-01-13 17:29:42",
-                            "modified": "2018-01-13 17:29:42"
-                        }
-                    
-                    ]
+            users: users,
+            appointments: appointments,
+            date: "2018-01-15",
         }
-        
     }
 
+    // api call 
     // componentWillMount() {
     //     userapi.getUsers().then((res) =>{
     //         this.setState({
@@ -70,9 +32,9 @@ export default class Login extends React.Component {
     return (
       <View style={styles.container}>
        <Header
-          leftComponent={{ icon: 'menu', color: '#fff' }}
+          //leftComponent={{ icon: 'menu', color: '#fff' }}
           centerComponent={{ text: 'Dr Appt App', style: { color: '#fff' } }}
-          rightComponent={{ icon: 'home', color: '#fff' }}
+          //rightComponent={{ icon: 'home', color: '#fff' }}
           outerContainerStyles={{ backgroundColor: 'gray', alignSelf: 'stretch'}}
         />
         
@@ -81,37 +43,71 @@ export default class Login extends React.Component {
         //onChangeText={someMethod}
         //onClearText={someMethod}
         placeholder='Search For Doctor Here...'
-        containerStyle={{alignSelf: 'stretch', marginBottom:100}} />
+        containerStyle={{alignSelf: 'stretch'}} />
         
         {/* Welcome Text */}
-        <Text>Welcome, {this.state.users[0].name}</Text>
+        {/* <Text>Welcome, {this.state.users[1].User.Name}</Text> */}
         
         {/* Request Appt Button (on click display appt menu) */}
-        <Button
-          buttonStyle={{backgroundColor: 'black', borderRadius: 25, width: 300, margin: 15}}
-          small
-          textStyle={{textAlign: 'center'}}
-          title={`Request Appointment`}
-          onPress={() => alert("Req Appt pressed")}  
+        <Card
+        title='Request Appointment'
+        containerStyle={{width: 250}}
+        >
+        <DatePicker
+        style={{width: 200}}
+        date={this.state.date}
+        mode="date"
+        placeholder="select date"
+        format="YYYY-MM-DD"
+        minDate="2017-01-15"
+        maxDate="2024-06-01"
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        customStyles={{
+          dateIcon: {
+            position: 'absolute',
+            left: 0,
+            top: 4,
+            marginLeft: 0
+          },
+          dateInput: {
+            marginLeft: 36
+          }
+          // ... You can check the source to find the other keys.
+        }}
+        onDateChange={(date) => {this.setState({date: date})}}
         />
+        <Button
+            backgroundColor='black'
+            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, marginTop: 10}}
+            title='Request' />
+        </Card>
         
-        {/* Past Appts (on click display past appts) */}
+        {/* Past Appts */}
+        <Card
+        title='Past Appointments'
+        >
+        <Text style={{marginBottom: 10}}>
+            Appointment Date: {this.state.appointments[1].Appointment.apptdate}
+        </Text>
         <Button
-          buttonStyle={{backgroundColor: 'black', borderRadius: 25, width: 300, margin: 15}}
-          small
-          textStyle={{textAlign: 'center'}}
-          title={`Past Appointments`}
-          onPress={() => alert("Past Appts pressed")} 
-        />
+            backgroundColor='black'
+            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+            title='View Details' />
+        </Card>
         
         {/* About Me (Get Call For Patient, Go to page for details) */}
-        <Button
-          buttonStyle={{backgroundColor: 'black', borderRadius: 25, width: 300, margin: 15}}
-          small
-          textStyle={{textAlign: 'center'}}
-          title={`About Me`}
-          onPress={() => alert("About pressed")} 
-        />
+        <Card
+        title='My Details'
+        >
+        <Text style={{marginBottom: 10, width: 250}}> 
+            Name: {this.state.users[1].User.Name} {"\n"}
+            Age: {this.state.users[1].User.Age} {"\n"}
+            Address: {this.state.users[1].User.Address}
+            
+        
+        </Text>
+        </Card>
       </View>
     );
   }
