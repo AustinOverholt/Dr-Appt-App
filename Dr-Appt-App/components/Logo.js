@@ -1,12 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Avatar } from 'react-native-elements';
+import { Header } from 'react-native-elements';
 
 export default class Logo extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text h2>Welcome To Dr Appointment App</Text>
+        <Header
+          leftComponent={{ icon: 'menu', color: '#fff' }}
+          centerComponent={{ text: 'Dr Appt App', style: { color: '#fff' } }}
+          rightComponent={{ icon: 'home', color: '#fff' }}
+          
+        />
       </View>
     );
   }
@@ -14,6 +19,6 @@ export default class Logo extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 75,
+       backgroundColor: 'black'
     },
   });
